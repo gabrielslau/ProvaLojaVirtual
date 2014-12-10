@@ -1,0 +1,12 @@
+- Apresentação (avaliação) prática da primeira unidade: 16/12/2014
+    - Implementação em DUPLAS de funcionalidades adicionais do sistema da "Loja Virtual". A implementação base do sistema encontra-se compartilhada (através do Git) no repositório da disciplina - https://code.google.com/p/dscorp-2014-2/. As funcionalidades adicionais propostas são as seguintes:
+        - Implementação do login de um usuário administrador (pode ser um usuário padrão - "admin", com senha também padrão - "admin");
+        - Cadastramento de um novo produto (para usuário administrador logado);
+        - Remoção de  um dado produto (para usuário administrador logado);
+        - Edição de um dado produto - p.ex.: aumentar a quantidade (para usuário administrador logado);
+        - Uma vez removido o último item do carrinho, encaminhar para a página principal ("index.xhtml");
+        - Cancelar o carrinho de compras e todos os itens nele contido;
+        - Finalizar a compra dos itens no carrinho. A finalização da compra consiste em solicitar as informações do comprador e a forma de pagamento e salvar TODAS (a venda em si, os seus itens e os dados com comprador) as informações da "Venda" no banco de dados;
+        - Listar as vendas finalizadas (para usuário administrador logado).
+- Prova escrita e subjetiva: 18/12/2014
+

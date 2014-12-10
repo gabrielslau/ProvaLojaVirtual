@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<f:loadBundle basename="resources.application" var="msg" />
+
+<head>
+<title><h:outputText value="#{msg.welcomeTitle}" /></title>
+</head>
+
+<body>
+	<h3 align="center">
+		<h:outputText value="#{msg.welcomeHeading}" />
+	</h3>
+	<p>
+		<h:outputText value="#{msg.welcomeMessage}" />
+	</p>
+	<center>
+	<h:dataTable border="1" value="#{produtoMB.produtos}" var="prod">
+		<h:column id="column1">
+			<f:facet name="header">
+				<h:outputText value="#{msg.coluna_descricao}"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{prod.descricao}"></h:outputText>
+		</h:column>
+		<h:column id="column2">
+			<f:facet name="header">
+				<h:outputText value="#{msg.coluna_preco}"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{prod.valor}"></h:outputText>
+		</h:column>
+		<h:column id="column3">
+			<f:facet name="header">
+				<h:outputText value="#{msg.coluna_quantidade}"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{prod.quantidade}"></h:outputText>
+		</h:column>
+		<h:column id="column4" >
+			<f:facet name="header">
+				<h:outputText value="#{msg.coluna_adicionaCarrinho}"></h:outputText>
+			</f:facet>
+			<center>
+			<h:form>
+			<h:commandButton id="b1" value="#{msg.botao_adicionar}" action="#{carrinhoMB.adicionaItem}">
+				<f:setPropertyActionListener target="#{carrinhoMB.idProduto}" value="#{prod.id}"></f:setPropertyActionListener>
+			</h:commandButton>
+			</h:form>
+			</center>
+		</h:column>
+	</h:dataTable>
+	</center>
+	<h:form>
+	<h:commandLink id="c1" value="#{msg.link_carrinho}" action="carrinho.xhtml" rendered="#{carrinhoMB.possuiItens}"></h:commandLink>
+	</h:form>
+</body>
+</html>
