@@ -13,7 +13,7 @@ import lojadsc.entidades.Produto;
 public class ProdutoDAOImpl implements ProdutoDAORemote {
 	@PersistenceContext(unitName="lojadsc")
 	EntityManager em;
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Produto> getProdutos() {
@@ -62,4 +62,13 @@ public class ProdutoDAOImpl implements ProdutoDAORemote {
 			em.merge(p);
 		}
 	}
+
+	@Override
+	public void addProduto(Produto produto) {
+		if (produto != null) {
+			em.persist(produto);
+		}
+	}
+
+
 }

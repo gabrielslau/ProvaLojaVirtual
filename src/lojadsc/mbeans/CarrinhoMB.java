@@ -20,10 +20,10 @@ public class CarrinhoMB {
 	private Map<Integer, ItemDeVenda> itens;
 	private Comprador comprador;
 	private int idProduto;
-	
+
 	@EJB
 	private ProdutoDAORemote produtoDAO;
-	
+
 	public CarrinhoMB() {
 		super();
 		itens = new HashMap<Integer, ItemDeVenda>();
@@ -40,7 +40,7 @@ public class CarrinhoMB {
 	public void setComprador(Comprador comprador) {
 		this.comprador = comprador;
 	}
-	
+
 	public int getIdProduto() {
 		return idProduto;
 	}
@@ -52,7 +52,7 @@ public class CarrinhoMB {
 	public boolean isPossuiItens() {
 		return !itens.isEmpty();
 	}
-	
+
 	public String adicionaItem() {
 		Produto p = produtoDAO.getProduto(idProduto);
 		if (p != null) {
@@ -69,7 +69,7 @@ public class CarrinhoMB {
 		}
 		return "index.xhtml";
 	}
-	
+
 	public String incrementaItem() {
 		Produto p = produtoDAO.getProduto(idProduto);
 		if (p != null) {
@@ -77,11 +77,11 @@ public class CarrinhoMB {
 			if (itens.containsKey(p.getId())) {
 				int quant = itens.get(p.getId()).getQuantidade();
 				itens.get(p.getId()).setQuantidade(++quant);
-			} 
+			}
 		}
 		return "carrinho.xhtml";
 	}
-	
+
 	public String decrementaItem() {
 		Produto p = produtoDAO.getProduto(idProduto);
 		if (p != null) {
@@ -97,7 +97,7 @@ public class CarrinhoMB {
 		}
 		return "carrinho.xhtml";
 	}
-	
+
 	public double getTotal() {
 		double total = 0;
 		for (ItemDeVenda item: itens.values()) {
@@ -105,11 +105,11 @@ public class CarrinhoMB {
 		}
 		return total;
 	}
-	
+
 	public String finalizaCompra() {
 		return "";
 	}
-	
+
 	@PreDestroy
 	public void cancelaCarrinho() {
 		if (!itens.isEmpty()) {

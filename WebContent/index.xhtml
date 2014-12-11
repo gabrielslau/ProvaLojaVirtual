@@ -6,55 +6,74 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-<f:loadBundle basename="resources.application" var="msg" />
+<h:body>
+	<ui:composition template="layout/default.xhtml">
+		<ui:define name="content">
+			<p>
+				<h:outputText value="#{msg.welcomeMessage}" />
+			</p>
 
-<head>
-<title><h:outputText value="#{msg.welcomeTitle}" /></title>
-</head>
-
-<body>
-	<h3 align="center">
-		<h:outputText value="#{msg.welcomeHeading}" />
-	</h3>
-	<p>
-		<h:outputText value="#{msg.welcomeMessage}" />
-	</p>
-	<center>
-	<h:dataTable border="1" value="#{produtoMB.produtos}" var="prod">
-		<h:column id="column1">
-			<f:facet name="header">
-				<h:outputText value="#{msg.coluna_descricao}"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{prod.descricao}"></h:outputText>
-		</h:column>
-		<h:column id="column2">
-			<f:facet name="header">
-				<h:outputText value="#{msg.coluna_preco}"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{prod.valor}"></h:outputText>
-		</h:column>
-		<h:column id="column3">
-			<f:facet name="header">
-				<h:outputText value="#{msg.coluna_quantidade}"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{prod.quantidade}"></h:outputText>
-		</h:column>
-		<h:column id="column4" >
-			<f:facet name="header">
-				<h:outputText value="#{msg.coluna_adicionaCarrinho}"></h:outputText>
-			</f:facet>
-			<center>
-			<h:form>
-			<h:commandButton id="b1" value="#{msg.botao_adicionar}" action="#{carrinhoMB.adicionaItem}">
-				<f:setPropertyActionListener target="#{carrinhoMB.idProduto}" value="#{prod.id}"></f:setPropertyActionListener>
-			</h:commandButton>
-			</h:form>
-			</center>
-		</h:column>
-	</h:dataTable>
-	</center>
-	<h:form>
-	<h:commandLink id="c1" value="#{msg.link_carrinho}" action="carrinho.xhtml" rendered="#{carrinhoMB.possuiItens}"></h:commandLink>
-	</h:form>
-</body>
+			<h:dataTable border="1" value="#{produtoMB.produtos}" var="prod"
+				styleClass="table table-bordered" rendered="produtoMB.possuiEmEstoque">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.coluna_descricao}"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{prod.descricao}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.coluna_preco}"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{prod.valor}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.coluna_quantidade}"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{prod.quantidade}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.coluna_adicionaCarrinho}"></h:outputText>
+					</f:facet>
+					<center>
+						<h:form>
+							<h:commandButton value="#{msg.botao_adicionar}"
+								action="#{carrinhoMB.adicionaItem}" styleClass="btn btn-primary">
+								<f:setPropertyActionListener target="#{carrinhoMB.idProduto}"
+									value="#{prod.id}"></f:setPropertyActionListener>
+							</h:commandButton>
+						</h:form>
+					</center>
+				</h:column>
+				<h:column rendered="#{sessaoMB.logado}">
+					<f:facet name="header"></f:facet>
+					<center>
+						<h:form>
+							<h:commandButton value="#{msg.botao_deletar}"
+								action="#{produtoMB.remover}" styleClass="btn btn-primary">
+								<f:setPropertyActionListener target="#{produtoMB.produto.id}"
+									value="#{prod.id}"></f:setPropertyActionListener>
+							</h:commandButton>
+						</h:form>
+					</center>
+				</h:column>
+			</h:dataTable>
+			
+			<h:panelGroup layout="block" rendered="#{produtoMB.semItensNoEstoque}" styleClass="jumbotron text-center">
+				<p class="lead">
+					#{msg.produto_empty}
+				</p>
+				<h:form>
+					<p>
+						<h:commandLink value="#{msg.nav_produto_add}"
+							action="produto_add.xhtml?faces-redirect=true"
+							rendered="#{sessaoMB.logado}" styleClass="btn btn-primary"></h:commandLink>
+					</p>
+				</h:form>
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+</h:body>
 </html>

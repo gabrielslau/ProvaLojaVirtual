@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<f:loadBundle basename="resources.application" var="msg" />
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<title><h:outputText value="#{msg.welcomeTitle}" /></title>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+</h:head>
+<h:body>
+	<ui:composition>
+		<nav class="navbar navbar-default navbar-static-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">#{msg.nav_toggle}</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#{root}index.xhtml"><h:outputText
+						value="#{msg.welcomeTitle}" /></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<h:form>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#{root}index.xhtml">#{msg.nav_index}</a></li>
+						<li><h:commandLink value="#{msg.nav_produto_add}" action="produto_add.xhtml?faces-redirect=true"
+								rendered="#{sessaoMB.logado}"></h:commandLink></li>
+						<li><h:commandLink value="#{msg.nav_carrinho}" action="carrinho.xhtml?faces-redirect=true"
+					rendered="#{carrinhoMB.possuiItens}"></h:commandLink></li>
+						<li><h:commandLink value="#{msg.nav_login}"
+								action="login.xhtml?faces-redirect=true"
+								rendered="#{sessaoMB.notLogado}" immediate="true"></h:commandLink></li>
+						<li><h:commandLink value="#{msg.nav_logout} (#{sessaoMB.usuario.nome})" action="#{sessaoMB.logout}"
+								rendered="#{sessaoMB.logado}"></h:commandLink></li>
+					</ul>
+				</h:form>
+			</div>
+		</div>
+		</nav>
+	</ui:composition>
+</h:body>
+</html>

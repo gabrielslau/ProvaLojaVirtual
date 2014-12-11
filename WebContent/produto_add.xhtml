@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+	<ui:composition template="layout/default.xhtml">
+		<ui:define name="content">
+			<h1 class="page-header">
+				<h:outputText value="#{msg.title_produto_add}" />
+			</h1>
+
+			<f:view>
+				<h:outputText value="#{sessaoMB.mensagem}"
+					rendered="#{sessaoMB.temMensagem}" style="color: #0000FF"></h:outputText>
+
+				<h:form action="#{produtoMB.cadastrar}">
+					<h:panelGrid columns="2" border="1"
+						styleClass="table table-bordered">
+						<h:outputLabel value="Nome do produto: "></h:outputLabel>
+						<h:inputText value="#{produtoMB.produto.descricao}"
+							styleClass="form-control"></h:inputText>
+						<h:outputLabel value="Valor: "></h:outputLabel>
+						<h:inputText value="#{produtoMB.produto.valor}"
+							styleClass="form-control"></h:inputText>
+						<h:outputLabel value="Quantidade em estoque: "></h:outputLabel>
+						<h:inputText value="#{produtoMB.produto.quantidade}"
+							styleClass="form-control"></h:inputText>
+					</h:panelGrid>
+					<h:commandButton value="#{msg.btn_cadastrar}"
+						action="#{produtoMB.cadastrar}" styleClass="btn btn-primary"></h:commandButton>
+				</h:form>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

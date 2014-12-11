@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+	<ui:composition template="layout/default.xhtml">
+		<ui:define name="content">
+			<h1 class="page-header">
+				<h:outputText value="#{msg.title_login}" />
+			</h1>
+
+			<f:view>
+				<h:outputText value="#{sessaoMB.mensagem}"
+					rendered="#{sessaoMB.temMensagem}" style="color: #0000FF"></h:outputText>
+
+				<h:form>
+					<h:panelGrid columns="2" border="1"
+						styleClass="table table-bordered">
+						<h:outputLabel value="Login: "></h:outputLabel>
+						<h:inputText value="#{sessaoMB.login}" styleClass="form-control"></h:inputText>
+						<h:outputLabel value="Senha: "></h:outputLabel>
+						<h:inputSecret value="#{sessaoMB.senha}" styleClass="form-control"></h:inputSecret>
+					</h:panelGrid>
+					<h:commandButton value="Efetuar Login"
+						action="#{sessaoMB.autenticar}" styleClass="btn btn-primary"></h:commandButton>
+					<br />
+				</h:form>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
