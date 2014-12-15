@@ -14,7 +14,8 @@
 			</p>
 
 			<h:dataTable border="1" value="#{produtoMB.produtos}" var="prod"
-				styleClass="table table-bordered" rendered="#{produtoMB.possuiEmEstoque}">
+				styleClass="table table-bordered"
+				rendered="#{produtoMB.possuiEmEstoque}">
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="#{msg.coluna_descricao}"></h:outputText>
@@ -30,7 +31,7 @@
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="#{msg.coluna_quantidade}"></h:outputText>
-				</f:facet>
+					</f:facet>
 					<h:outputText value="#{prod.quantidade}"></h:outputText>
 				</h:column>
 				<h:column>
@@ -63,20 +64,16 @@
 					<f:facet name="header"></f:facet>
 					<center>
 						<h:form>
-							<h:commandButton value="#{msg.botao_editar}"
-								action="#{produtoMB.editar}" styleClass="btn btn-primary">
-								<f:setPropertyActionListener target="#{produtoMB.produto.id}"
-									value="#{prod.id}"></f:setPropertyActionListener>
-							</h:commandButton>
+							<h:commandLink value="#{msg.botao_editar}" action="#{produtoMB.editar(prod)}" styleClass="btn btn-primary" />
 						</h:form>
 					</center>
 				</h:column>
 			</h:dataTable>
-			
-			<h:panelGroup layout="block" rendered="#{produtoMB.semItensNoEstoque}" styleClass="jumbotron text-center">
-				<p class="lead">
-					#{msg.produto_empty}
-				</p>
+
+			<h:panelGroup layout="block"
+				rendered="#{produtoMB.semItensNoEstoque}"
+				styleClass="jumbotron text-center">
+				<p class="lead">#{msg.produto_empty}</p>
 				<h:form>
 					<p>
 						<h:commandLink value="#{msg.nav_produto_add}"

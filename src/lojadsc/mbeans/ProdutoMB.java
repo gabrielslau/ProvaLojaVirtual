@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.faces.FacesException;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.component.html.HtmlDataTable;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -19,6 +20,7 @@ import lojadsc.entidades.Produto;
 public class ProdutoMB {
 	private List<Produto> produtos;
 	private Produto produto = new Produto();
+	private HtmlDataTable dataTable;
 
 	@EJB
 	private ProdutoDAORemote dao;
@@ -57,10 +59,6 @@ public class ProdutoMB {
 	}
 
 	public String cadastrar() {
-		// TODO: verificar se já está cadastrado
-		// se estiver, lança mensagem e retorna para a págian de cadastro
-		// senão, cadastra o produto e retorna para a página de listagem
-
 		ExternalContext externalContext = FacesContext.getCurrentInstance()
 				.getExternalContext();
 		try {
@@ -88,11 +86,15 @@ public class ProdutoMB {
 			throw new FacesException(e);
 		}
 	}
-	public String editar() {
+	public String editar(Produto prod) {
+		this.produto = prod;
+		return "produto_edit.xhtml";
+	}
+
+	public String atualizar() {
 		ExternalContext externalContext = FacesContext.getCurrentInstance()
 				.getExternalContext();
 		try {
-			//Verificar se o produto existe
 			Produto prod = dao.getProduto(produto.getId());
 			if(prod != null){
 				dao.editarProduto(produto);
@@ -103,5 +105,4 @@ public class ProdutoMB {
 		}
 		return "produto_edit.xhtml";
 	}
-
 }

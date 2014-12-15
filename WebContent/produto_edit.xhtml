@@ -17,7 +17,7 @@
 				<h:outputText value="#{sessaoMB.mensagem}"
 					rendered="#{sessaoMB.temMensagem}" style="color: #0000FF"></h:outputText>
 
-				<h:form action="#{produtoMB.editar}">
+				<h:form action="#{produtoMB.atualizar}">
 					<h:panelGrid columns="2" border="1"
 						styleClass="table table-bordered">
 						<h:outputLabel value="Nome do produto: "></h:outputLabel>
@@ -30,10 +30,9 @@
 						<h:inputText value="#{produtoMB.produto.quantidade}"
 							styleClass="form-control"></h:inputText>
 					</h:panelGrid>
+					<h:inputHidden value="#{produtoMB.produto.id}"></h:inputHidden>
 					<h:commandButton value="#{msg.botao_editar}"
-								action="#{produtoMB.editar}" styleClass="btn btn-primary">
-								<f:setPropertyActionListener target="#{produtoMB.produto.id}"
-									value="#{produtoMB.produto.id}"></f:setPropertyActionListener>
+								action="#{produtoMB.atualizar}" styleClass="btn btn-primary">
 					</h:commandButton>
 				</h:form>
 			</f:view>
