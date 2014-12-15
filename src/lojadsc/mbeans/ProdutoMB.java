@@ -76,19 +76,17 @@ public class ProdutoMB {
 		return "cadastrar.xhtml";
 	}
 	public void remover() {
-
-
-		ExternalContext externalContext = FacesContext.getCurrentInstance()
-				.getExternalContext();
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		try {
-			//Verificar se o produto existe 
-			dao.removeProduto(produto);
-			this.getProdutos();
-
+			//Verificar se o produto existe
+			Produto prod = dao.getProduto(produto.getId());
+			if(prod != null){
+				dao.removeProduto(produto);
+			}
 			externalContext.redirect(externalContext.getRequestContextPath() + "/app/index.xhtml");
 		} catch (IOException e) {
 			throw new FacesException(e);
 		}
 	}
-	
+
 }

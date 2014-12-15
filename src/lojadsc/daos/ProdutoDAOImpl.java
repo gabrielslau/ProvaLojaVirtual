@@ -72,7 +72,8 @@ public class ProdutoDAOImpl implements ProdutoDAORemote {
 	@Override
 	public void removeProduto(Produto produto) {
 		if (produto != null) {
-			em.persist(produto);
+			Produto toBeRemoved = em.merge(produto);
+			em.remove(toBeRemoved);
 		}
 	}
 
