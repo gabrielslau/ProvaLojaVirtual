@@ -69,6 +69,12 @@ public class ProdutoDAOImpl implements ProdutoDAORemote {
 			em.persist(produto);
 		}
 	}
+	@Override
+	public void removeProduto(Produto produto) {
+		if (produto != null) {
+			em.persist(produto);
+		}
+	}
 
 
 }
