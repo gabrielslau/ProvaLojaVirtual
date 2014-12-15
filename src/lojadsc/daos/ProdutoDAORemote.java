@@ -15,4 +15,5 @@ public interface ProdutoDAORemote {
 	public void incrementaQuantidade(int idProduto);
 	public Produto getProduto(int idProduto);
 	public void addProduto(Produto produto);
+	public void removeProduto(Produto produto);
 }

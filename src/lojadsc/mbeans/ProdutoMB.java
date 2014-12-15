@@ -75,4 +75,20 @@ public class ProdutoMB {
 		}
 		return "cadastrar.xhtml";
 	}
+	public void remover() {
+
+
+		ExternalContext externalContext = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		try {
+			//Verificar se o produto existe 
+			dao.removeProduto(produto);
+			this.getProdutos();
+
+			externalContext.redirect(externalContext.getRequestContextPath() + "/app/index.xhtml");
+		} catch (IOException e) {
+			throw new FacesException(e);
+		}
+	}
+	
 }
