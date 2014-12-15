@@ -76,6 +76,15 @@ public class ProdutoDAOImpl implements ProdutoDAORemote {
 			em.remove(toBeRemoved);
 		}
 	}
+	public void editarProduto(Produto produto) {
+		Produto p = em.find(Produto.class, produto.getId());
+		if (p != null) {
+			p.setDescricao(produto.getDescricao());
+			p.setQuantidade(produto.getQuantidade());
+			p.setValor(produto.getValor());
+			em.merge(p);
+		}
+	}
 
 
 }

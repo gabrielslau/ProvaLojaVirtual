@@ -59,6 +59,18 @@
 						</h:form>
 					</center>
 				</h:column>
+				<h:column rendered="#{sessaoMB.logado}">
+					<f:facet name="header"></f:facet>
+					<center>
+						<h:form>
+							<h:commandButton value="#{msg.botao_editar}"
+								action="#{produtoMB.editar}" styleClass="btn btn-primary">
+								<f:setPropertyActionListener target="#{produtoMB.produto.id}"
+									value="#{prod.id}"></f:setPropertyActionListener>
+							</h:commandButton>
+						</h:form>
+					</center>
+				</h:column>
 			</h:dataTable>
 			
 			<h:panelGroup layout="block" rendered="#{produtoMB.semItensNoEstoque}" styleClass="jumbotron text-center">

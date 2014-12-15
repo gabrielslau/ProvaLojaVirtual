@@ -73,7 +73,7 @@ public class ProdutoMB {
 		} catch (IOException e) {
 			throw new FacesException(e);
 		}
-		return "cadastrar.xhtml";
+		return "produto_add.xhtml";
 	}
 	public void remover() {
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
@@ -87,6 +87,21 @@ public class ProdutoMB {
 		} catch (IOException e) {
 			throw new FacesException(e);
 		}
+	}
+	public String editar() {
+		ExternalContext externalContext = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		try {
+			//Verificar se o produto existe
+			Produto prod = dao.getProduto(produto.getId());
+			if(prod != null){
+				dao.editarProduto(produto);
+			}
+			externalContext.redirect(externalContext.getRequestContextPath() + "/app/index.xhtml");
+		} catch (IOException e) {
+			throw new FacesException(e);
+		}
+		return "produto_edit.xhtml";
 	}
 
 }
