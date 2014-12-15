@@ -14,7 +14,7 @@
 			</p>
 
 			<h:dataTable border="1" value="#{produtoMB.produtos}" var="prod"
-				styleClass="table table-bordered" rendered="produtoMB.possuiEmEstoque">
+				styleClass="table table-bordered" rendered="#{produtoMB.possuiEmEstoque}">
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="#{msg.coluna_descricao}"></h:outputText>
