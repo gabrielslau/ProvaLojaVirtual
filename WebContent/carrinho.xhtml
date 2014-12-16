@@ -68,29 +68,15 @@
 					<h:outputText value="#{carrinhoMB.total}"></h:outputText>
 				</h4>
 				<h:form>
-					<h:commandButton id="bntFinalizar"
-						value="#{msg.link_finalizar_compra}" styleClass="btn btn-primary"></h:commandButton>
+					<h:commandLink id="bntFinalizar" value="#{msg.link_finalizar_compra}"
+							action="finaliza_compra.xhtml?faces-redirect=true"
+							styleClass="btn btn-primary"></h:commandLink>
 					<h:commandButton id="bntCancelar"
 						value="#{msg.link_limpar_carrinho}" styleClass="btn btn-default" action="#{carrinhoMB.cancelaCarrinho}"></h:commandButton>
 				</h:form>
 			</h:panelGroup>
 	
-			<h:panelGroup layout="block"
-				rendered="#{carrinhoMB.semItens}"
-				styleClass="jumbotron text-center">
-				<p class="lead">#{msg.carrinho_empty}</p>
-				<h:form>
-					<p>
-						<h:commandLink value="#{msg.carrinho_produto_add}"
-							action="index.xhtml?faces-redirect=true"
-							styleClass="btn btn-primary" rendered="#{produtoMB.possuiEmEstoque}"></h:commandLink>
-							
-						<h:commandLink value="#{msg.carrinho_produto_add}"
-							action="produto_add.xhtml?faces-redirect=true"
-							styleClass="btn btn-primary" rendered="#{produtoMB.semItensNoEstoque}"></h:commandLink>
-					</p>
-				</h:form>
-			</h:panelGroup>
+			<ui:include src="/elements/carrinho_empty.xhtml" />
 		
 		</ui:define>
 	</ui:composition>

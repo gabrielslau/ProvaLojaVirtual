@@ -1,6 +1,7 @@
 package lojadsc.entidades;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -25,9 +26,10 @@ public class Venda implements Serializable {
 	private Comprador comprador;
 	private FormaDePagamento formaDePagamento;
 	private List<ItemDeVenda> itensDeVenda;
-	
+
 	public Venda() {
 		super();
+		this.data = Calendar.getInstance().getTime();
 	}
 
 	@Id
@@ -75,7 +77,7 @@ public class Venda implements Serializable {
 	public void setFormaDePagamento(FormaDePagamento formaDePagamento) {
 		this.formaDePagamento = formaDePagamento;
 	}
-	
+
 	@Transient
 	public double getTotal() {
 		double total = 0;

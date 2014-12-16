@@ -1,7 +1,10 @@
 package lojadsc.mbeans;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PreDestroy;
@@ -10,23 +13,48 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import lojadsc.daos.ProdutoDAORemote;
+import lojadsc.daos.VendaDAORemote;
 import lojadsc.entidades.Comprador;
+import lojadsc.entidades.FormaDePagamento;
 import lojadsc.entidades.ItemDeVenda;
 import lojadsc.entidades.Produto;
+import lojadsc.entidades.Venda;
 
-@ManagedBean(name="carrinhoMB")
+@ManagedBean(name = "carrinhoMB")
 @SessionScoped
 public class CarrinhoMB extends AppMB {
 	private Map<Integer, ItemDeVenda> itens;
 	private Comprador comprador;
+	private FormaDePagamento formaDePagamento;
+	private List<FormaDePagamento> formasDePagamento;
 	private int idProduto;
 
 	@EJB
 	private ProdutoDAORemote produtoDAO;
 
+	@EJB
+	private VendaDAORemote vendaDAO;
+
 	public CarrinhoMB() {
 		super();
 		itens = new HashMap<Integer, ItemDeVenda>();
+		comprador = new Comprador();
+	}
+
+	public FormaDePagamento getFormaDePagamento() {
+		return formaDePagamento;
+	}
+
+	public void setFormaDePagamento(FormaDePagamento formaDePagamento) {
+		this.formaDePagamento = formaDePagamento;
+	}
+
+	public List<FormaDePagamento> getFormasDePagamento() {
+		return Arrays.asList(FormaDePagamento.values());
+	}
+
+	public void setFormasDePagamento(List<FormaDePagamento> formasDePagamento) {
+		this.formasDePagamento = formasDePagamento;
 	}
 
 	public Collection<ItemDeVenda> getItens() {
@@ -95,7 +123,7 @@ public class CarrinhoMB extends AppMB {
 				if (quant == 1) {
 					itens.remove(p.getId());
 					// Redireciona para a página inicial
-					if(itens.isEmpty())
+					if (itens.isEmpty())
 						this.redirect("index");
 				} else {
 					itens.get(p.getId()).setQuantidade(--quant);
@@ -107,21 +135,55 @@ public class CarrinhoMB extends AppMB {
 
 	public double getTotal() {
 		double total = 0;
-		for (ItemDeVenda item: itens.values()) {
+		for (ItemDeVenda item : itens.values()) {
 			total += item.getSubtotal();
 		}
 		return total;
 	}
 
+	/**
+	 * Finalizar a compra dos itens no carrinho. A finalização da compra
+	 * consiste em solicitar as informações do comprador e a forma de pagamento
+	 * e salvar TODAS (a venda em si, os seus itens e os dados com comprador) as
+	 * informações da "Venda" no banco de dados
+	 *
+	 */
 	public String finalizaCompra() {
-		return "";
+		if (itens.isEmpty()) {
+			// TODO: saber como redirecionar automaticamente
+			this.redirect("index.xhtml");
+		}
+		return "finaliza_compra.xhtml";
+	}
+
+	public String processafinalizaCompra() {
+		Venda venda = new Venda();
+		List<ItemDeVenda> itensDeVenda = new ArrayList<ItemDeVenda>(
+				itens.values());
+
+		venda.setComprador(comprador);
+		venda.setFormaDePagamento(formaDePagamento);
+		venda.setItensDeVenda(itensDeVenda);
+
+		// TODO: adicionar try-catch e setar mensagem de erro se não conseguir
+		// salvar
+		vendaDAO.save(venda);
+
+		// TODO: Verificar se os produtos do carrinho estão com contador ZERO
+		// se estiverem, apaga o produto do banco
+
+		// Limpa o carrinho
+		//itens = new HashMap<Integer, ItemDeVenda>();
+
+		return "index.xhtml";
 	}
 
 	@PreDestroy
 	public void cancelaCarrinho() {
 		if (!itens.isEmpty()) {
-			for (ItemDeVenda item: itens.values()) {
-				produtoDAO.adicionaQuantidade(item.getProduto().getId(), item.getQuantidade());
+			for (ItemDeVenda item : itens.values()) {
+				produtoDAO.adicionaQuantidade(item.getProduto().getId(),
+						item.getQuantidade());
 			}
 		}
 		itens = new HashMap<Integer, ItemDeVenda>();

@@ -3,16 +3,12 @@ package lojadsc.daos;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import lojadsc.entidades.Produto;
 
 @Stateless
-public class ProdutoDAOImpl implements ProdutoDAORemote {
-	@PersistenceContext(unitName="lojadsc")
-	EntityManager em;
+public class ProdutoDAOImpl extends AppDAO implements ProdutoDAORemote {
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -76,6 +72,7 @@ public class ProdutoDAOImpl implements ProdutoDAORemote {
 			em.remove(toBeRemoved);
 		}
 	}
+	@Override
 	public void editarProduto(Produto produto) {
 		Produto p = em.find(Produto.class, produto.getId());
 		if (p != null) {
@@ -85,6 +82,4 @@ public class ProdutoDAOImpl implements ProdutoDAORemote {
 			em.merge(p);
 		}
 	}
-
-
 }

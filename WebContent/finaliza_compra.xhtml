@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+	<ui:composition template="layout/default.xhtml">
+		<ui:define name="content">
+			<h1 class="page-header">
+				<h:outputText value="#{msg.title_comprador}" />
+			</h1>
+
+			<h:panelGroup layout="block"
+				rendered="#{carrinhoMB.possuiItens}">
+				<h:outputText value="#{sessaoMB.mensagem}"
+					rendered="#{sessaoMB.temMensagem}" style="color: #0000FF"></h:outputText>
+
+				<h:form>
+					<h:panelGrid columns="2" border="1"
+						styleClass="table table-bordered">
+						<h:outputLabel value="Nome do comprador: "></h:outputLabel>
+						<h:inputText value="#{carrinhoMB.comprador.nome}"
+							styleClass="form-control"></h:inputText>
+						<h:outputLabel value="CPF: "></h:outputLabel>
+						<h:inputText value="#{carrinhoMB.comprador.cpf}"
+							styleClass="form-control"></h:inputText>
+						<h:outputLabel value="Endereço: "></h:outputLabel>
+						<h:inputText value="#{carrinhoMB.comprador.endereco}"
+							styleClass="form-control"></h:inputText>
+
+						<h:outputLabel value="Forma de pagamento: "></h:outputLabel>
+						<h:selectOneMenu value="#{carrinhoMB.formaDePagamento}" styleClass="form-control">
+							<f:selectItems value="#{carrinhoMB.formasDePagamento}" />
+						</h:selectOneMenu>
+					</h:panelGrid>
+
+					<h:commandButton value="#{msg.botao_finalizar}"
+						action="#{carrinhoMB.processafinalizaCompra}"
+						styleClass="btn btn-primary">
+					</h:commandButton>
+				</h:form>
+			</h:panelGroup>
+			
+			<ui:include src="/elements/carrinho_empty.xhtml" />
+			
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
