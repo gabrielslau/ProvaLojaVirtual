@@ -16,7 +16,7 @@ import lojadsc.entidades.Produto;
 
 @ManagedBean(name="carrinhoMB")
 @SessionScoped
-public class CarrinhoMB {
+public class CarrinhoMB extends AppMB {
 	private Map<Integer, ItemDeVenda> itens;
 	private Comprador comprador;
 	private int idProduto;
@@ -51,6 +51,10 @@ public class CarrinhoMB {
 
 	public boolean isPossuiItens() {
 		return !itens.isEmpty();
+	}
+
+	public boolean isSemItens() {
+		return itens.isEmpty();
 	}
 
 	public String adicionaItem() {
@@ -90,6 +94,9 @@ public class CarrinhoMB {
 				int quant = itens.get(p.getId()).getQuantidade();
 				if (quant == 1) {
 					itens.remove(p.getId());
+					// Redireciona para a página inicial
+					if(itens.isEmpty())
+						this.redirect("index");
 				} else {
 					itens.get(p.getId()).setQuantidade(--quant);
 				}
@@ -118,5 +125,6 @@ public class CarrinhoMB {
 			}
 		}
 		itens = new HashMap<Integer, ItemDeVenda>();
+		this.redirect("index");
 	}
 }

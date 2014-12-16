@@ -8,7 +8,6 @@ import javax.ejb.EJB;
 import javax.faces.FacesException;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.component.html.HtmlDataTable;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -20,7 +19,6 @@ import lojadsc.entidades.Produto;
 public class ProdutoMB {
 	private List<Produto> produtos;
 	private Produto produto = new Produto();
-	private HtmlDataTable dataTable;
 
 	@EJB
 	private ProdutoDAORemote dao;

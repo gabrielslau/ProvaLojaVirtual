@@ -9,9 +9,12 @@
 <h:body>
 	<ui:composition template="layout/default.xhtml">
 		<ui:define name="content">
-			<p>
-				<h:outputText value="#{msg.welcomeMessage}" />
-			</p>
+
+			<h:panelGroup layout="block">
+				<p>
+					<h:outputText value="#{msg.welcomeMessage}" />
+				</p>
+			</h:panelGroup>
 
 			<h:dataTable border="1" value="#{produtoMB.produtos}" var="prod"
 				styleClass="table table-bordered"
@@ -64,7 +67,8 @@
 					<f:facet name="header"></f:facet>
 					<center>
 						<h:form>
-							<h:commandLink value="#{msg.botao_editar}" action="#{produtoMB.editar(prod)}" styleClass="btn btn-primary" />
+							<h:commandLink value="#{msg.botao_editar}"
+								action="#{produtoMB.editar(prod)}" styleClass="btn btn-primary" />
 						</h:form>
 					</center>
 				</h:column>

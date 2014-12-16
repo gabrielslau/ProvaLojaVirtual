@@ -12,66 +12,86 @@
 			<h1 class="page-header">
 				<h:outputText value="#{msg.titulo_carrinho}" />
 			</h1>
-
-			<h:form>
-				<h:dataTable border="1" value="#{carrinhoMB.itens}" var="item"
-					styleClass="table table-bordered">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value="#{msg.coluna_produto}"></h:outputText>
-						</f:facet>
-						<h:outputText value="#{item.produto.descricao}"></h:outputText>
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value="#{msg.coluna_quant}"></h:outputText>
-						</f:facet>
-						<h:outputText value="#{item.quantidade}"></h:outputText>
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value="#{msg.coluna_preco_unitario}"></h:outputText>
-						</f:facet>
-						<h:outputText value="#{item.produto.valor}"></h:outputText>
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value="#{msg.coluna_subtotal}"></h:outputText>
-						</f:facet>
-						<h:outputText value="#{item.subtotal}"></h:outputText>
-					</h:column>
-					<h:column>
-						<f:facet name="header" />
-						<h:commandButton id="bntIncrementa"
-							value="#{msg.coluna_incrementa}"
-							action="#{carrinhoMB.incrementaItem}" styleClass="btn btn-default">
-							<f:setPropertyActionListener target="#{carrinhoMB.idProduto}"
-								value="#{item.produto.id}"></f:setPropertyActionListener>
-						</h:commandButton>
-					</h:column>
-					<h:column>
-						<f:facet name="header" />
-						<h:commandButton id="bntDecrementa"
-							value="#{msg.coluna_decrementa}"
-							action="#{carrinhoMB.decrementaItem}" styleClass="btn btn-default">
-							<f:setPropertyActionListener target="#{carrinhoMB.idProduto}"
-								value="#{item.produto.id}"></f:setPropertyActionListener>
-						</h:commandButton>
-					</h:column>
-				</h:dataTable>
-			</h:form>
-
-			<h4>
-				<h:outputText value="#{msg.total_carrinho}"></h:outputText>
-				<h:outputText value="#{carrinhoMB.total}"></h:outputText>
-			</h4>
-			<h:form>
-				<h:commandButton id="bntFinalizar"
-					value="#{msg.link_finalizar_compra}" styleClass="btn btn-primary"></h:commandButton>
-				<h:commandButton id="bntCancelar"
-					value="#{msg.link_limpar_carrinho}" styleClass="btn btn-default"></h:commandButton>
-			</h:form>
-
+		
+			<h:panelGroup layout="block"
+				rendered="#{carrinhoMB.possuiItens}">
+				<h:form>
+					<h:dataTable border="1" value="#{carrinhoMB.itens}" var="item"
+						styleClass="table table-bordered">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.coluna_produto}"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{item.produto.descricao}"></h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.coluna_quant}"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{item.quantidade}"></h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.coluna_preco_unitario}"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{item.produto.valor}"></h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{msg.coluna_subtotal}"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{item.subtotal}"></h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header" />
+							<h:commandButton id="bntIncrementa"
+								value="#{msg.coluna_incrementa}"
+								action="#{carrinhoMB.incrementaItem}" styleClass="btn btn-default">
+								<f:setPropertyActionListener target="#{carrinhoMB.idProduto}"
+									value="#{item.produto.id}"></f:setPropertyActionListener>
+							</h:commandButton>
+						</h:column>
+						<h:column>
+							<f:facet name="header" />
+							<h:commandButton id="bntDecrementa"
+								value="#{msg.coluna_decrementa}"
+								action="#{carrinhoMB.decrementaItem}" styleClass="btn btn-default">
+								<f:setPropertyActionListener target="#{carrinhoMB.idProduto}"
+									value="#{item.produto.id}"></f:setPropertyActionListener>
+							</h:commandButton>
+						</h:column>
+					</h:dataTable>
+				</h:form>
+	
+				<h4>
+					<h:outputText value="#{msg.total_carrinho}"></h:outputText>
+					<h:outputText value="#{carrinhoMB.total}"></h:outputText>
+				</h4>
+				<h:form>
+					<h:commandButton id="bntFinalizar"
+						value="#{msg.link_finalizar_compra}" styleClass="btn btn-primary"></h:commandButton>
+					<h:commandButton id="bntCancelar"
+						value="#{msg.link_limpar_carrinho}" styleClass="btn btn-default"></h:commandButton>
+				</h:form>
+			</h:panelGroup>
+	
+			<h:panelGroup layout="block"
+				rendered="#{carrinhoMB.semItens}"
+				styleClass="jumbotron text-center">
+				<p class="lead">#{msg.carrinho_empty}</p>
+				<h:form>
+					<p>
+						<h:commandLink value="#{msg.carrinho_produto_add}"
+							action="index.xhtml?faces-redirect=true"
+							styleClass="btn btn-primary" rendered="#{produtoMB.possuiEmEstoque}"></h:commandLink>
+							
+						<h:commandLink value="#{msg.carrinho_produto_add}"
+							action="produto_add.xhtml?faces-redirect=true"
+							styleClass="btn btn-primary" rendered="#{produtoMB.semItensNoEstoque}"></h:commandLink>
+					</p>
+				</h:form>
+			</h:panelGroup>
+		
 		</ui:define>
 	</ui:composition>
 </h:body>

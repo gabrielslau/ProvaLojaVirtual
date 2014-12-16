@@ -15,7 +15,6 @@ import lojadsc.entidades.Usuario;
 public class SessaoMB {
 	private Usuario usuario;
 	private String nome, login, senha, mensagem;
-	private boolean logado;
 
 	public SessaoMB() {
 		super();
@@ -91,7 +90,6 @@ public class SessaoMB {
 			Usuario autenticado = this.getUser(this.login, this.senha);
 			if (autenticado != null) {
 				this.setUsuario(autenticado);
-				this.logado = true;
 				ExternalContext externalContext = FacesContext.getCurrentInstance()
 						.getExternalContext();
 				try {
