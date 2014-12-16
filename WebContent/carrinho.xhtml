@@ -1,86 +1,78 @@
-<?xml version="1.0" encoding="US-ASCII" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
-<f:loadBundle basename="resources.application" var="msg" />
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII" />
-<title><h:outputText value="#{msg.cabecalho_carrinho}"></h:outputText></title>
-</head>
-<body>
-	<center>
-		<h3 align="center">
-			<h:outputText value="#{msg.titulo_carrinho}"></h:outputText>
-		</h3>
-		<h2 align="center">
-			<h:outputText value="#{sessaoMB.nome}" rendered="#{sessaoMB.logado}"></h:outputText>
-		</h2>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-		<h:form>
-			<h:dataTable id="d1" border="1" value="#{carrinhoMB.itens}"
-				var="item">
-				<h:column id="c1">
-					<f:facet name="header">
-						<h:outputText value="#{msg.coluna_produto}"></h:outputText>
-					</f:facet>
-					<h:outputText value="#{item.produto.descricao}"></h:outputText>
-				</h:column>
-				<h:column id="c2">
-					<f:facet name="header">
-						<h:outputText value="#{msg.coluna_quant}"></h:outputText>
-					</f:facet>
-					<h:outputText value="#{item.quantidade}"></h:outputText>
-				</h:column>
-				<h:column id="c3">
-					<f:facet name="header">
-						<h:outputText value="#{msg.coluna_preco_unitario}"></h:outputText>
-					</f:facet>
-					<h:outputText value="#{item.produto.valor}"></h:outputText>
-				</h:column>
-				<h:column id="c4">
-					<f:facet name="header">
-						<h:outputText value="#{msg.coluna_subtotal}"></h:outputText>
-					</f:facet>
-					<h:outputText value="#{item.subtotal}"></h:outputText>
-				</h:column>
-				<h:column id="c5">
-					<f:facet name="header">
-						<h:outputText value="#{msg.coluna_incrementa}"></h:outputText>
-					</f:facet>
-					<h:commandButton id="bntIncrementa"
-						value="#{msg.coluna_incrementa}"
-						action="#{carrinhoMB.incrementaItem}">
-						<f:setPropertyActionListener target="#{carrinhoMB.idProduto}"
-							value="#{item.produto.id}"></f:setPropertyActionListener>
-					</h:commandButton>
-				</h:column>
-				<h:column id="c6">
-					<f:facet name="header">
-						<h:outputText value="#{msg.coluna_decrementa}"></h:outputText>
-					</f:facet>
-					<h:commandButton id="bntDecrementa"
-						value="#{msg.coluna_decrementa}"
-						action="#{carrinhoMB.decrementaItem}">
-						<f:setPropertyActionListener target="#{carrinhoMB.idProduto}"
-							value="#{item.produto.id}"></f:setPropertyActionListener>
-					</h:commandButton>
-				</h:column>
-			</h:dataTable>
-		</h:form>
-		<h4>
-			<h:outputText id="o1" value="#{msg.total_carrinho}"></h:outputText>
-			<h:outputText id="o2" value="#{carrinhoMB.total}"></h:outputText>
-		</h4>
-		<h:form>
-			<h:commandButton id="bntFinalizar"
-				value="#{msg.link_finalizar_compra}"></h:commandButton>
-			<h:commandButton id="bntCancelar" value="#{msg.link_limpar_carrinho}"></h:commandButton>
-		</h:form>
-	</center>
-	<h:form>
-		<h:commandLink id="linkVoltar" value="#{msg.link_voltar}"
-			action="index.xhtml"></h:commandLink>
-	</h:form>
-</body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+	<ui:composition template="layout/default.xhtml">
+		<ui:define name="content">
+			<h1 class="page-header">
+				<h:outputText value="#{msg.titulo_carrinho}" />
+			</h1>
+
+			<h:form>
+				<h:dataTable border="1" value="#{carrinhoMB.itens}" var="item"
+					styleClass="table table-bordered">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.coluna_produto}"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{item.produto.descricao}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.coluna_quant}"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{item.quantidade}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.coluna_preco_unitario}"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{item.produto.valor}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.coluna_subtotal}"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{item.subtotal}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header" />
+						<h:commandButton id="bntIncrementa"
+							value="#{msg.coluna_incrementa}"
+							action="#{carrinhoMB.incrementaItem}" styleClass="btn btn-default">
+							<f:setPropertyActionListener target="#{carrinhoMB.idProduto}"
+								value="#{item.produto.id}"></f:setPropertyActionListener>
+						</h:commandButton>
+					</h:column>
+					<h:column>
+						<f:facet name="header" />
+						<h:commandButton id="bntDecrementa"
+							value="#{msg.coluna_decrementa}"
+							action="#{carrinhoMB.decrementaItem}" styleClass="btn btn-default">
+							<f:setPropertyActionListener target="#{carrinhoMB.idProduto}"
+								value="#{item.produto.id}"></f:setPropertyActionListener>
+						</h:commandButton>
+					</h:column>
+				</h:dataTable>
+			</h:form>
+
+			<h4>
+				<h:outputText value="#{msg.total_carrinho}"></h:outputText>
+				<h:outputText value="#{carrinhoMB.total}"></h:outputText>
+			</h4>
+			<h:form>
+				<h:commandButton id="bntFinalizar"
+					value="#{msg.link_finalizar_compra}" styleClass="btn btn-primary"></h:commandButton>
+				<h:commandButton id="bntCancelar"
+					value="#{msg.link_limpar_carrinho}" styleClass="btn btn-default"></h:commandButton>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
 </html>
