@@ -15,7 +15,7 @@ public class ItemDeVenda implements Serializable {
 	private int id;
 	private int quantidade;
 	private Produto produto;
-	
+
 	public ItemDeVenda() {
 		super();
 	}
@@ -46,7 +46,7 @@ public class ItemDeVenda implements Serializable {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
-	
+
 	@Transient
 	public double getSubtotal() {
 		return (produto!=null) ? produto.getValor() * quantidade: 0.0;

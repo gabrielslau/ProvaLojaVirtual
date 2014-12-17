@@ -3,6 +3,7 @@ package lojadsc.entidades;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -14,12 +15,13 @@ public class Comprador implements Serializable {
 	private String nome;
 	private String endereco;
 	private List<Venda> compras;
-	
+
 	public Comprador() {
 		super();
 	}
 
 	@Id
+	@Column(unique = true)
 	public String getCpf() {
 		return cpf;
 	}

@@ -12,23 +12,26 @@ public class VendaDAOImpl extends AppDAO implements VendaDAORemote {
 
 	@Override
 	public List<Venda> getVendas() {
-		// TODO Auto-generated method stub
+		// TODO
 		return null;
 	}
 
+	/**
+	 * Persiste os dados da venda
+	 *
+	 * @see http://blog.xebia.com/2009/03/23/jpa-implementation-patterns-saving-detached-entities/
+	 */
 	@Override
 	public void save(Venda venda) {
 		if (venda != null) {
 			Comprador comprador = em.find(Comprador.class, venda.getComprador().getCpf());
 			if (comprador != null) {
-				/*
-				 * desacopla o comprador para que evite de salvá-lo se o mesmo
-				 * já existir no banco
-				 */
-				em.detach(comprador);
+				// salva os dados da venda para o comprador já cadastrado
+				em.merge(venda);
+			}else{
+				// cria o comprador e os dados da venda
+				em.persist(venda);
 			}
-			// salvou
-			em.persist(venda);
 		}
 	}
 }

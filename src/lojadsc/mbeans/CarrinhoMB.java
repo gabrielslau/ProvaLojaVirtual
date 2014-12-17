@@ -173,7 +173,7 @@ public class CarrinhoMB extends AppMB {
 		// se estiverem, apaga o produto do banco
 
 		// Limpa o carrinho
-		//itens = new HashMap<Integer, ItemDeVenda>();
+		itens = new HashMap<Integer, ItemDeVenda>();
 
 		return "index.xhtml";
 	}
