@@ -82,4 +82,16 @@ public class ProdutoDAOImpl extends AppDAO implements ProdutoDAORemote {
 			em.merge(p);
 		}
 	}
+
+	/**
+	 * Verifica se um dado produto está disponível no estoque
+	 */
+	@Override
+	public Produto getProdutoEmEstoque(int id) {
+		Produto produto = em.find(Produto.class, id);
+		if(produto == null || produto.getQuantidade() == 0){
+			return null;
+		}
+		return produto;
+	}
 }

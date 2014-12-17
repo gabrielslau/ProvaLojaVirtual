@@ -12,9 +12,8 @@
 			<h1 class="page-header">
 				<h:outputText value="#{msg.titulo_carrinho}" />
 			</h1>
-		
-			<h:panelGroup layout="block"
-				rendered="#{carrinhoMB.possuiItens}">
+
+			<h:panelGroup layout="block" rendered="#{carrinhoMB.possuiItens}">
 				<h:form>
 					<h:dataTable border="1" value="#{carrinhoMB.itens}" var="item"
 						styleClass="table table-bordered">
@@ -46,38 +45,45 @@
 							<f:facet name="header" />
 							<h:commandButton id="bntIncrementa"
 								value="#{msg.coluna_incrementa}"
-								action="#{carrinhoMB.incrementaItem}" styleClass="btn btn-default">
+								action="#{carrinhoMB.incrementaItem}"
+								styleClass="btn btn-default"
+								rendered="#{produtoMB.temNoEstoque(item.produto.id)}">
 								<f:setPropertyActionListener target="#{carrinhoMB.idProduto}"
 									value="#{item.produto.id}"></f:setPropertyActionListener>
 							</h:commandButton>
+							
+							<h:outputText value="#{msg.indisponivel}" rendered="#{produtoMB.naoTemNoEstoque(item.produto.id)}"></h:outputText>
 						</h:column>
 						<h:column>
 							<f:facet name="header" />
 							<h:commandButton id="bntDecrementa"
 								value="#{msg.coluna_decrementa}"
-								action="#{carrinhoMB.decrementaItem}" styleClass="btn btn-default">
+								action="#{carrinhoMB.decrementaItem}"
+								styleClass="btn btn-default">
 								<f:setPropertyActionListener target="#{carrinhoMB.idProduto}"
 									value="#{item.produto.id}"></f:setPropertyActionListener>
 							</h:commandButton>
 						</h:column>
 					</h:dataTable>
 				</h:form>
-	
+
 				<h4>
 					<h:outputText value="#{msg.total_carrinho}"></h:outputText>
 					<h:outputText value="#{carrinhoMB.total}"></h:outputText>
 				</h4>
 				<h:form>
-					<h:commandLink id="bntFinalizar" value="#{msg.link_finalizar_compra}"
-							action="finaliza_compra.xhtml?faces-redirect=true"
-							styleClass="btn btn-primary"></h:commandLink>
+					<h:commandLink id="bntFinalizar"
+						value="#{msg.link_finalizar_compra}"
+						action="finaliza_compra.xhtml?faces-redirect=true"
+						styleClass="btn btn-primary"></h:commandLink>
 					<h:commandButton id="bntCancelar"
-						value="#{msg.link_limpar_carrinho}" styleClass="btn btn-default" action="#{carrinhoMB.cancelaCarrinho}"></h:commandButton>
+						value="#{msg.link_limpar_carrinho}" styleClass="btn btn-default"
+						action="#{carrinhoMB.cancelaCarrinho}"></h:commandButton>
 				</h:form>
 			</h:panelGroup>
-	
+
 			<ui:include src="/elements/carrinho_empty.xhtml" />
-		
+
 		</ui:define>
 	</ui:composition>
 </h:body>

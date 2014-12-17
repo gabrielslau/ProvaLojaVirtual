@@ -46,6 +46,20 @@ public class ProdutoMB {
 		this.produto = produto;
 	}
 
+	/**
+	 * Verifica se um dado produto ainda está disponível no estoque
+	 *
+	 * @param id
+	 * @return
+	 */
+	public boolean temNoEstoque(int id) {
+		return dao.getProdutoEmEstoque(id) != null;
+	}
+
+	public boolean naoTemNoEstoque(int id) {
+		return dao.getProdutoEmEstoque(id) == null;
+	}
+
 	public boolean isPossuiEmEstoque() {
 		getProdutos();
 		return !produtos.isEmpty();
