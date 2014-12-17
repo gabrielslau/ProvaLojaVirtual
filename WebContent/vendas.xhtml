@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+	<ui:composition template="layout/default.xhtml">
+		<ui:define name="content">
+
+			<h:dataTable border="1" value="#{vendaMB.itensDeVenda}" var="venda"
+				styleClass="table table-bordered"
+				rendered="#{vendaMB.possuiItens and sessaoMB.logado}">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.coluna_descricao}" />
+					</f:facet>
+					<h:outputText value="#{venda.comprador.nome}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.coluna_descricao}" />
+					</f:facet>
+					<h:outputText value="#{venda.formaDePagamento}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.coluna_descricao}" />
+					</f:facet>
+					<h:outputText value="#{venda.data}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header" />
+					<h:form>
+						<h:commandLink value="#{msg.botao_visualizar}"
+							action="#{vendaMB.view(venda)}" styleClass="btn btn-primary" />
+					</h:form>
+				</h:column>
+			</h:dataTable>
+
+			<h:panelGroup layout="block" rendered="#{sessaoMB.notLogado}"
+				styleClass="jumbotron text-center">
+				<p class="lead">#{msg.title_login}</p>
+				<h:form>
+					<p>
+						<h:commandLink value="#{msg.nav_login}"
+							action="login.xhtml?faces-redirect=true"
+							styleClass="btn btn-primary"></h:commandLink>
+					</p>
+				</h:form>
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

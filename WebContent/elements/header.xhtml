@@ -32,15 +32,21 @@
 				<h:form>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="#{root}index.xhtml">#{msg.nav_index}</a></li>
-						<li><h:commandLink value="#{msg.nav_produto_add}" action="produto_add.xhtml?faces-redirect=true"
+						<li><h:commandLink value="#{msg.nav_produto_add}"
+								action="produto_add.xhtml?faces-redirect=true"
 								rendered="#{sessaoMB.logado}"></h:commandLink></li>
-						<li><h:commandLink value="#{msg.nav_carrinho}" action="carrinho.xhtml?faces-redirect=true"
-					rendered="#{carrinhoMB.possuiItens}"></h:commandLink></li>
+						<li><h:commandLink value="#{msg.nav_carrinho}"
+								action="carrinho.xhtml?faces-redirect=true"
+								rendered="#{carrinhoMB.possuiItens}"></h:commandLink></li>
 						<li><h:commandLink value="#{msg.nav_login}"
 								action="login.xhtml?faces-redirect=true"
 								rendered="#{sessaoMB.notLogado}" immediate="true"></h:commandLink></li>
-						<li><h:commandLink value="#{msg.nav_logout} (#{sessaoMB.usuario.nome})" action="#{sessaoMB.logout}"
-								rendered="#{sessaoMB.logado}"></h:commandLink></li>
+						<li><h:commandLink
+								value="#{msg.nav_logout} (#{sessaoMB.usuario.nome})"
+								action="#{sessaoMB.logout}" rendered="#{sessaoMB.logado}"></h:commandLink></li>
+						<li><h:commandLink value="#{msg.nav_venda}"
+								action="vendas.xhtml?faces-redirect=true"
+								rendered="#{sessaoMB.logado and vendaMB.possuiItens}"></h:commandLink></li>
 					</ul>
 				</h:form>
 			</div>

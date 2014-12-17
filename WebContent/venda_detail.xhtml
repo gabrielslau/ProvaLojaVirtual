@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+	<ui:composition template="layout/default.xhtml">
+		<ui:define name="content">
+
+			<h:panelGroup layout="block">
+				<h1 class="page-header">
+					<h:outputText value="#{msg.title_detalhe_venda}" />
+					<h:outputText value="#{vendaMB.venda.id}" />
+				</h1>
+				
+				<p class="text-muted">					
+					Comprado por
+					<h:outputText value="#{vendaMB.venda.comprador.nome}" />,
+					em 
+					<h:outputText value="#{vendaMB.venda.data}">
+						<f:convertDateTime pattern="dd-MM-yyyy"/>
+					</h:outputText>
+				</p>
+			</h:panelGroup>
+			
+			<h:dataTable border="1" value="#{vendaMB.venda.itensDeVenda}" var="venda"
+				styleClass="table table-bordered">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.coluna_descricao}"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{venda.produto.descricao}"></h:outputText>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.coluna_preco}"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{venda.produto.valor}"></h:outputText>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.coluna_quant}"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{venda.quantidade}"></h:outputText>
+				</h:column>
+				
+			</h:dataTable>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

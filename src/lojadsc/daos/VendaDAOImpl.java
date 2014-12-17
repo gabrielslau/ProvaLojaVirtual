@@ -3,6 +3,7 @@ package lojadsc.daos;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 
 import lojadsc.entidades.Comprador;
 import lojadsc.entidades.Venda;
@@ -10,10 +11,11 @@ import lojadsc.entidades.Venda;
 @Stateless
 public class VendaDAOImpl extends AppDAO implements VendaDAORemote {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Venda> getVendas() {
-		// TODO
-		return null;
+		Query query = em.createQuery("SELECT v FROM Venda v");
+		return query.getResultList();
 	}
 
 	/**
